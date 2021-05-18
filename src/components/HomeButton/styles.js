@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 export const Button = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
-    width: 90%;
     margin: 3px;
     padding: 12px;
     elevation: 3;

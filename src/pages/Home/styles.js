@@ -3,6 +3,12 @@ import styled from 'styled-components/native';
 export const View = styled.View`
     flex: 1;
     align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+`;
+
+export const Buttons = styled.View`
+    width: 95%;
     margin-top: 10px;
 `;
 

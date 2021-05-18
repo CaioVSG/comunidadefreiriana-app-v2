@@ -1,15 +1,15 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    flex: 1;
     flex-direction: row;
     margin-top: 10px;
+    margin-bottom: 25px;
 `;
 
 export const View = styled.View`
     align-items: center;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
 `;
 
 export const ImageView = styled.View`
