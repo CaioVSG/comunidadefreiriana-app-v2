@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 
-export const View = styled.View`
+export const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 5px;
 `;
 
 export const Buttons = styled.View`

@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Buttons, Image, Text } from './styles';
+import { Container, Buttons, Image, Text } from './styles';
 import HomeButton from '../../components/HomeButton';
 import Footer from '../../components/Footer';
 
 export default function Home() {
     return (
-        <View>
-            <Image source={require('../../assets/logo_mapeamento_2.png')} />
+        <Container>
+            <Image source={require('../../assets/logo_mapeamento.png')} />
             <Text>Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos,
             e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os
                 embaralhou para fazer um livro de modelos de tipos.</Text>
@@ -17,6 +17,6 @@ export default function Home() {
                 <HomeButton color={'#f38424'} icon={'sign-out-alt'} text={'Sair do aplicativo'} />
             </Buttons>
             <Footer />
-        </View>
+        </Container>
     );
 }

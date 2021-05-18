@@ -1,19 +1,19 @@
 import styled from 'styled-components/native';
 
 export const Button = styled.TouchableOpacity`
-    flex-direction: row;
     align-items: center;
-    margin: 5px;
+    justify-content: center;
+    margin: 10px;
     padding: 12px;
     elevation: 3;
     border-radius: 5px;
-    background-color: ${props => props.color};
+    background-color: #ffffff;
+    height: 150px;
+    width: 40%;
 `;
 
 export const Text = styled.Text`
     padding: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    color: #ffffff;
+    margin-top: 10px;
     font-size: 16px;
 `;

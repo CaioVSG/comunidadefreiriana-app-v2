@@ -16,5 +16,5 @@ export default function Footer() {
                 </ImageView>
             </View>
         </Container>
-    )
+    );
 }
