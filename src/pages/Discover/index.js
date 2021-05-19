@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, View, Buttons } from './styles';
+import { Container, View, Buttons, Button, ButtonView, Text, Image } from './styles';
 import DiscoverButton from '../../components/DiscoverButton';
 import Footer from '../../components/Footer';
 
@@ -8,7 +8,13 @@ export default function Discover() {
         <Container>
             <View>
                 <Buttons>
-                    <DiscoverButton icon='history' text='Linha do tempo' />
+                    <Button>
+                        <ButtonView>
+                            <Text margin='80px'>Conheça</Text>
+                            <Text margin='0px'>Paulo Freire</Text>
+                        </ButtonView>
+                        <Image source={require('../../assets/paulo_freire.jpg')} />
+                    </Button>
                     <DiscoverButton icon='history' text='Linha do tempo' />
                 </Buttons>
                 <Buttons>
