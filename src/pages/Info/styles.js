@@ -12,7 +12,7 @@ export const Image = styled.Image`
     z-index: -1;
 `;
 
-export const ViewInfo = styled.View`
+export const Institution = styled.View`
     position: absolute;
     width: 100%;
     margin-top: 180px;
@@ -20,6 +20,14 @@ export const ViewInfo = styled.View`
     border-radius: 15px;
     background-color: #ffffff;
     z-index: 1;
+`;
+
+export const ScrollView = styled.ScrollView`
+    width: 100%;
+    height: 100%;
+    margin-top: 80px;
+    padding: 20px;
+    z-index: -1;
 `;
 
 export const Icons = styled.View`
@@ -36,6 +44,7 @@ export const Divider = styled.View`
 export const View = styled.View`
     margin-top: 10px;
     margin-bottom: 10px;
+    padding-bottom: 10px;
 `;
 
 export const Text = styled.Text`

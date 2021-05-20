@@ -1,23 +1,24 @@
 import React from 'react';
-import { Container, MapView } from './styles';
-import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Container } from './styles';
+import { StyleSheet, Dimensions } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import mapMarker from '../../assets/icone_marker.png';
 
 export default function Map() {
     return (
         <Container>
-            <MapView provider={PROVIDER_GOOGLE} initialRegion={{
+            <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={{
                 latitude: -27.209205,
-                logintude: -49.6401092,
+                longitude: -49.6401092,
                 latitudeDelta: 0.008,
-                logintudeDelta: 0.008
+                longitudeDelta: 0.008,
             }}
             >
                 <Marker
                     icon={mapMarker}
                     coordinate={{
                         latitude: -27.209205,
-                        logintude: -49.6401092
+                        longitude: -49.6401092,
                     }}
                 >
                 </Marker>
@@ -25,3 +26,10 @@ export default function Map() {
         </Container>
     );
 }
+
+const styles = StyleSheet.create({
+    map: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height
+    }
+})
