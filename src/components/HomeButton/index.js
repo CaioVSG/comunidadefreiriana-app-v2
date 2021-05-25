@@ -4,7 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function HomeButton(props) {
     return (
-        <Button color={props.color}>
+        <Button onPress={props.route} color={props.color}>
             <FontAwesome5 name={props.icon} size={22} color='white' />
             <Text>{props.text}</Text>
         </Button>

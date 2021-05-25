@@ -7,13 +7,17 @@ export const Container = styled.SafeAreaView`
     margin-top: 5px;
 `;
 
-export const Buttons = styled.View`
-    flex-direction: row;
+export const ScrollView = styled.ScrollView`
+    width: 100%;
 `;
 
 export const View = styled.View`
     align-items: center;
     margin-bottom: 10px;
+`;
+
+export const Buttons = styled.View`
+    flex-direction: row;
 `;
 
 export const Button = styled.TouchableOpacity`

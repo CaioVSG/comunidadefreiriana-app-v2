@@ -6,6 +6,7 @@ export const Container = styled.View`
 
 export const Footer = styled.View`
     position: absolute;
+    left: 24px;
     right: 24px;
     bottom: 32px;
     z-index: 1;
@@ -14,6 +15,7 @@ export const Footer = styled.View`
 export const Button = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     margin: 5px;
     padding: 12px;
     elevation: 3;
@@ -27,22 +29,6 @@ export const Text = styled.Text`
     margin-right: 5px;
     color: #ffffff;
     font-size: 16px;
-`;
-
-export const CalloutContainer = styled.View`
-    width: 200px;
-    height: 60px;
-    padding-horizontal: 20px;
-    background-color: rgba(76, 180, 212, 0.9);
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const CalloutText = styled.Text`
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: bold;
 `;
 
 export const MapTextContainer = styled.View`

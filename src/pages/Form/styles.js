@@ -36,6 +36,32 @@ export const Text = styled.Text`
     font-size: 14px;
 `;
 
+export const ImageInput = styled.TouchableOpacity`
+    border-style: dashed;
+    border-color: #999999;
+    border-width: 1px;
+    border-radius: 3px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-horizontal: 10px;
+`;
+
+export const ImageContainer = styled.View`
+    flex-direction: row;
+    margin-top: 10px;
+    margin-horizontal: 10px;
+`;
+
+export const ImageView = styled.Image`
+    width: 64px;
+    height: 64px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+`;
+
 export const Button = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;

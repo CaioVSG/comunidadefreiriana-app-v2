@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, MapTextContainer, MapText, CalloutContainer, CalloutText, Footer, Button, Text } from './styles';
+import { Container, MapTextContainer, MapText, Footer, Button, Text } from './styles';
 import { StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { FontAwesome5 } from '@expo/vector-icons';
 import mapMarker from '../../assets/icone_marker.png';
 
-export default function Map({ navigation }) {
+export default function SelectArea({ navigation }) {
+    const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
     const [isLoading, setIsLoading] = useState(true);
     const [currentLatitude, setLatitude] = useState(0);
     const [currentLongitude, setLongitude] = useState(0);
@@ -27,12 +27,8 @@ export default function Map({ navigation }) {
         })();
     }, []);
 
-    function handleNavigateToInfo() {
-        navigation.navigate('Info');
-    }
-
-    function handleNavigateToSelectArea() {
-        navigation.navigate('SelectArea');
+    function handleNavigateToForm() {
+        navigation.navigate('Form');
     }
 
     return (
@@ -48,28 +44,27 @@ export default function Map({ navigation }) {
                     latitudeDelta: 0.0143,
                     longitudeDelta: 0.0143
                 }}
+                    onPress={(e) => { setPosition(e.nativeEvent.coordinate) }}
                 >
-                    <Marker
-                        icon={mapMarker}
-                        coordinate={{
-                            latitude: currentLatitude,
-                            longitude: currentLongitude
-                        }}
-                    >
-                        <Callout tooltip onPress={handleNavigateToInfo}>
-                            <CalloutContainer>
-                                <CalloutText>Universidade Federal Rural de Pernambuco</CalloutText>
-                            </CalloutContainer>
-                        </Callout>
-                    </Marker>
+                    {position.latitude != 0 && (
+                        <Marker
+                            icon={mapMarker}
+                            coordinate={{
+                                latitude: position.latitude,
+                                longitude: position.longitude
+                            }}
+                        >
+                        </Marker>
+                    )}
                 </MapView>
             )}
-            <Footer>
-                <Button onPress={handleNavigateToSelectArea}>
-                    <FontAwesome5 name='plus' size={22} color='white' />
-                    <Text>Instituição</Text>
-                </Button>
-            </Footer>
+            {position.latitude != 0 && (
+                <Footer>
+                    <Button onPress={handleNavigateToForm}>
+                        <Text>Próximo passo</Text>
+                    </Button>
+                </Footer>
+            )}
         </Container>
     );
 }

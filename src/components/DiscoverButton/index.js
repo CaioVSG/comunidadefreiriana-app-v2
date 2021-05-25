@@ -4,7 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function DiscoverButton(props) {
     return (
-        <Button>
+        <Button onPress={props.route}>
             <FontAwesome5 name={props.icon} size={50} color='#f04434' />
             <Text>{props.text}</Text>
         </Button>

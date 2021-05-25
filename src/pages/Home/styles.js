@@ -4,7 +4,7 @@ export const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 24px;
 `;
 
 export const Buttons = styled.View`
