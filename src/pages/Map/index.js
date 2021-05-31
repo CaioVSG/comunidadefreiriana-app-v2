@@ -3,20 +3,26 @@ import { Container, MapTextContainer, MapText, CalloutContainer, CalloutText, Fo
 import { StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
+import api from '../../services/api';
 import { FontAwesome5 } from '@expo/vector-icons';
 import mapMarker from '../../assets/icone_marker.png';
 
 export default function Map({ navigation }) {
+    const [institutions, setInstitutions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentLatitude, setLatitude] = useState(0);
     const [currentLongitude, setLongitude] = useState(0);
-    const [errorMsg, setErrorMsg] = useState(null);
+
+    useEffect(() => {
+        api.get('instituicao/index').then(response => {
+            setInstitutions(response.data.data);
+        });
+    }, [setInstitutions]);
 
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
                 return;
             }
 
@@ -27,8 +33,8 @@ export default function Map({ navigation }) {
         })();
     }, []);
 
-    function handleNavigateToInfo() {
-        navigation.navigate('Info');
+    function handleNavigateToInfo(id) {
+        navigation.navigate('Info', { id: id });
     }
 
     function handleNavigateToSelectArea() {
@@ -49,19 +55,24 @@ export default function Map({ navigation }) {
                     longitudeDelta: 0.0143
                 }}
                 >
-                    <Marker
-                        icon={mapMarker}
-                        coordinate={{
-                            latitude: currentLatitude,
-                            longitude: currentLongitude
-                        }}
-                    >
-                        <Callout tooltip onPress={handleNavigateToInfo}>
-                            <CalloutContainer>
-                                <CalloutText>Universidade Federal Rural de Pernambuco</CalloutText>
-                            </CalloutContainer>
-                        </Callout>
-                    </Marker>
+                    {institutions.map(institution => {
+                        return (
+                            <Marker
+                                key={institution.id}
+                                icon={mapMarker}
+                                coordinate={{
+                                    latitude: parseFloat(institution.latitude),
+                                    longitude: parseFloat(institution.longitude)
+                                }}
+                            >
+                                <Callout tooltip onPress={() => handleNavigateToInfo(institution.id)}>
+                                    <CalloutContainer>
+                                        <CalloutText>{institution.nome}</CalloutText>
+                                    </CalloutContainer>
+                                </Callout>
+                            </Marker>
+                        )
+                    })}
                 </MapView>
             )}
             <Footer>

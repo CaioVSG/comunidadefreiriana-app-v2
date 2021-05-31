@@ -52,6 +52,8 @@ export const ImageContainer = styled.View`
     flex-direction: row;
     margin-top: 10px;
     margin-horizontal: 10px;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const ImageView = styled.Image`
@@ -78,5 +80,31 @@ export const ButtonText = styled.Text`
     margin-left: 5px;
     margin-right: 5px;
     color: #ffffff;
+    font-size: 16px;
+`;
+
+export const ButtonTextImage = styled.Text`
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #999999;
+    font-size: 16px;
+`;
+
+export const DateInput = styled.TouchableOpacity`
+    flex-direction: row;
+    align-items: center;
+    border-color: #999999;
+    border-width: 1px;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+`;
+
+export const DateText = styled.Text`
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #000000;
     font-size: 16px;
 `;

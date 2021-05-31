@@ -10,13 +10,11 @@ export default function SelectArea({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
     const [currentLatitude, setLatitude] = useState(0);
     const [currentLongitude, setLongitude] = useState(0);
-    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
                 return;
             }
 
@@ -28,7 +26,7 @@ export default function SelectArea({ navigation }) {
     }, []);
 
     function handleNavigateToForm() {
-        navigation.navigate('Form');
+        navigation.navigate('Form', { latitude: position.latitude, longitude: position.longitude });
     }
 
     return (
