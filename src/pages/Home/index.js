@@ -16,8 +16,8 @@ export default function Home() {
         navigation.navigate('Map');
     }
 
-    function handleNavigateToSelectArea() {
-        navigation.navigate('SelectArea');
+    function handleNavigateToForm() {
+        navigation.navigate('Form', { latitude: '', longitude: '' });
     }
 
     function handleExitApp() {
@@ -33,7 +33,7 @@ export default function Home() {
             <Buttons>
                 <HomeButton route={handleNavigateToDiscover} color={'#4cb4d4'} icon={'bezier-curve'} text={'Conheça Paulo Freire'} />
                 <HomeButton route={handleNavigateToMap} color={'#7cc44c'} icon={'map-marked-alt'} text={'Mapa'} />
-                <HomeButton route={handleNavigateToSelectArea} color={'#fbc30f'} icon={'list-alt'} text={'Solicitar cadastro'} />
+                <HomeButton route={handleNavigateToForm} color={'#fbc30f'} icon={'list-alt'} text={'Solicitar cadastro'} />
                 <HomeButton route={handleExitApp} color={'#f38424'} icon={'sign-out-alt'} text={'Sair do aplicativo'} />
             </Buttons>
             <Footer />

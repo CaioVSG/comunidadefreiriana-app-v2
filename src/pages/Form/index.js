@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 export default function Form({ route }) {
     const [name, setName] = useState('');
@@ -40,7 +41,10 @@ export default function Form({ route }) {
             state === '' ||
             city === '' ||
             address === '' ||
-            email === '') {
+            email === '' ||
+            phone === '' ||
+            site === '' ||
+            info === '') {
             return false;
         } else {
             return true;
@@ -93,57 +97,121 @@ export default function Form({ route }) {
             return false;
         }
 
-        const data = new FormData();
+        if (latitude != '') {
+            const data = new FormData();
 
-        data.append('nome', name);
-        data.append('categoria', 'teste');
-        data.append('pais', country);
-        data.append('estado', state);
-        data.append('cidade', city);
-        data.append('endereco', address);
-        data.append('cep', cep);
-        data.append('telefone', phone);
-        data.append('email', email);
-        data.append('site', site);
-        data.append('coordenador', coordinator);
-        data.append('DatadeRealizacao', '2020-12-08');
-        data.append('NomedaRealizacao', 'teste');
-        data.append('latitude', String(latitude));
-        data.append('longitude', String(longitude));
-        data.append('info', info);
-        data.append('autorizado', false);
-        data.append('confirmacaoEmail', false);
-        data.append('datafundacao', String(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`));
-        images.forEach((image, index) => {
-            data.append('image', {
-                uri: image,
-                name: `${index}.jpg`,
-                type: 'image/jpg'
+            data.append('nome', name);
+            data.append('categoria', 'teste');
+            data.append('pais', country);
+            data.append('estado', state);
+            data.append('cidade', city);
+            data.append('endereco', address);
+            data.append('cep', cep);
+            data.append('telefone', phone);
+            data.append('email', email);
+            data.append('site', site);
+            data.append('coordenador', coordinator);
+            data.append('DatadeRealizacao', '2020-12-08');
+            data.append('NomedaRealizacao', 'teste');
+            data.append('latitude', String(latitude));
+            data.append('longitude', String(longitude));
+            data.append('info', info);
+            data.append('autorizado', false);
+            data.append('confirmacaoEmail', false);
+            data.append('datafundacao', String(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`));
+            images.forEach((image, index) => {
+                data.append('image', {
+                    uri: image,
+                    name: `${index}.jpg`,
+                    type: 'image/jpg'
+                });
             });
-        });
 
-        try {
-            const response = await api.post('instituicao/store', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Accept: 'application/json'
-                }
-            });
-        } catch (err) {
-            Alert.alert('Ocorreu um erro ao processar a sua requisição.', 'Tente novamente.')
-        }
-
-        Alert.alert(
-            'Solicitação realizada com sucesso!', 'Acompanhe o status pelo e-mail cadastrado.',
-            [
-                {
-                    text: "Ok", onPress: () => handleNavigateToHome()
-                }
-            ],
-            {
-                cancelable: false
+            try {
+                await api.post('instituicao/store', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Accept: 'application/json'
+                    }
+                });
+            } catch (err) {
+                Alert.alert('Ocorreu um erro ao processar a sua requisição.', 'Tente novamente.')
+                return false;
             }
-        );
+
+            Alert.alert(
+                'Solicitação realizada com sucesso!', 'Acompanhe o status pelo e-mail cadastrado.',
+                [
+                    {
+                        text: "Ok", onPress: () => handleNavigateToHome()
+                    }
+                ],
+                {
+                    cancelable: false
+                }
+            );
+        } else {
+            const response = await Location.geocodeAsync(`${address} ${state} ${city} ${country}`);
+            if (typeof response[0] === 'undefined') {
+                Alert.alert('Endereço não encontrado!', 'Verifique o endereço e tente novamente.');
+                return false;
+            }
+            const lat = response[0].latitude;
+            const long = response[0].longitude;
+
+            const data = new FormData();
+
+            data.append('nome', name);
+            data.append('categoria', 'teste');
+            data.append('pais', country);
+            data.append('estado', state);
+            data.append('cidade', city);
+            data.append('endereco', address);
+            data.append('cep', cep);
+            data.append('telefone', phone);
+            data.append('email', email);
+            data.append('site', site);
+            data.append('coordenador', coordinator);
+            data.append('DatadeRealizacao', '2020-12-08');
+            data.append('NomedaRealizacao', 'teste');
+            data.append('latitude', String(lat));
+            data.append('longitude', String(long));
+            data.append('info', info);
+            data.append('autorizado', false);
+            data.append('confirmacaoEmail', false);
+            data.append('datafundacao', String(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`));
+            images.forEach((image, index) => {
+                data.append('image', {
+                    uri: image,
+                    name: `${index}.jpg`,
+                    type: 'image/jpg'
+                });
+            });
+
+            try {
+                await api.post('instituicao/store', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Accept: 'application/json'
+                    }
+                });
+            } catch (err) {
+                Alert.alert('Ocorreu um erro ao processar a sua requisição.', 'Tente novamente.')
+                return false;
+            }
+
+            Alert.alert(
+                'Solicitação realizada com sucesso!', 'Acompanhe o status pelo e-mail cadastrado.',
+                [
+                    {
+                        text: "Ok", onPress: () => handleNavigateToHome()
+                    }
+                ],
+                {
+                    cancelable: false
+                }
+            );
+        }
     }
 
     return (
@@ -187,10 +255,10 @@ export default function Form({ route }) {
                     value={country}
                     onChangeText={setCountry}
                 />
-                <Text>CEP*</Text>
+                <Text>CEP (Somente números)*</Text>
                 <TextInput
                     multiline
-                    placeholder='55555-555'
+                    placeholder='55555555'
                     value={cep}
                     onChangeText={setCep}
                 />
@@ -222,21 +290,21 @@ export default function Form({ route }) {
                     value={email}
                     onChangeText={setEmail}
                 />
-                <Text>Telefone (com DDD)</Text>
+                <Text>Telefone (com DDD)*</Text>
                 <TextInput
                     multiline
                     placeholder='81999999999'
                     value={phone}
                     onChangeText={setPhone}
                 />
-                <Text>Site</Text>
+                <Text>Site*</Text>
                 <TextInput
                     multiline
                     placeholder='exemplo@site.com'
                     value={site}
                     onChangeText={setSite}
                 />
-                <Text>Mais informações</Text>
+                <Text>Mais informações*</Text>
                 <TextArea
                     multiline
                     placeholder='Exemplo'
@@ -264,15 +332,9 @@ export default function Form({ route }) {
                     </ImageInput>
                 )}
                 <Text>Campos com (*) são obrigatórios</Text>
-                {validateFields() ? (
-                    <Button onPress={handleCreateInstitution}>
-                        <ButtonText>Enviar</ButtonText>
-                    </Button>
-                ) : (
-                    <Button disabled>
-                        <ButtonText>Enviar</ButtonText>
-                    </Button>
-                )}
+                <Button onPress={handleCreateInstitution}>
+                    <ButtonText>Enviar</ButtonText>
+                </Button>
             </ScrollView>
         </Container>
     );
