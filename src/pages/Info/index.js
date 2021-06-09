@@ -32,20 +32,28 @@ export default function Info({ route }) {
                     <TextMargin margin='0 0 0 5px' size='14px' color='#616161'>{institution.email}</TextMargin>
                 </Icons>
                 <View>
+                    <Text size='14px' color='#000000'>Estado</Text>
+                    <Text size='14px' color='#616161'>{institution.estado}</Text>
+                </View>
+                <View>
+                    <Text size='14px' color='#000000'>Cidade</Text>
+                    <Text size='14px' color='#616161'>{institution.cidade}</Text>
+                </View>
+                <View>
                     <Text size='14px' color='#000000'>Endereço</Text>
                     <Text size='14px' color='#616161'>{institution.endereco}</Text>
                 </View>
                 <Divider />
                 <View>
-                    <Text size='14px' color='#000000'>Data da realização</Text>
+                    <Text size='14px' color='#000000'>Data da fundação</Text>
                     <Text size='14px' color='#616161'>{institution.datafundacao}</Text>
                 </View>
                 <View>
-                    <Text size='14px' color='#000000'>Nome da realização</Text>
-                    <Text size='14px' color='#616161'>{institution.NomedaRealizacao}</Text>
+                    <Text size='14px' color='#000000'>Categoria</Text>
+                    <Text size='14px' color='#616161'>{institution.categoria}</Text>
                 </View>
                 <View>
-                    <Text size='14px' color='#000000'>Nome da realização</Text>
+                    <Text size='14px' color='#000000'>Nome do coordenador</Text>
                     <Text size='14px' color='#616161'>{institution.coordenador}</Text>
                 </View>
                 <View>
