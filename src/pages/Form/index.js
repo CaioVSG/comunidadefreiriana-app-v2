@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { Container, ScrollView, Text, TextInput, DateInput, DateText, TextArea, ImageContainer, ImageView, ImageInput, Button, ButtonText, ButtonTextImage } from './styles';
+import { Container, ScrollView, Text, TextInput, PickerBorder, DateInput, DateText, TextArea, ImageContainer, ImageView, ImageInput, Button, ButtonText, ButtonTextImage } from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
 import api from '../../services/api';
@@ -10,6 +11,7 @@ import * as Location from 'expo-location';
 
 export default function Form({ route }) {
     const [name, setName] = useState('');
+    const [categoria, setCategoria] = useState('');
     const [coordinator, setCoordinator] = useState('');
     const [country, setCountry] = useState('');
     const [cep, setCep] = useState('');
@@ -35,16 +37,14 @@ export default function Form({ route }) {
 
     function validateFields() {
         if (name === '' ||
+            categoria === '' ||
             coordinator === '' ||
             country === '' ||
             cep === '' ||
             state === '' ||
             city === '' ||
             address === '' ||
-            email === '' ||
-            phone === '' ||
-            site === '' ||
-            info === '') {
+            email === '') {
             return false;
         } else {
             return true;
@@ -101,7 +101,7 @@ export default function Form({ route }) {
             const data = new FormData();
 
             data.append('nome', name);
-            data.append('categoria', 'teste');
+            data.append('categoria', categoria);
             data.append('pais', country);
             data.append('estado', state);
             data.append('cidade', city);
@@ -111,8 +111,6 @@ export default function Form({ route }) {
             data.append('email', email);
             data.append('site', site);
             data.append('coordenador', coordinator);
-            data.append('DatadeRealizacao', '2020-12-08');
-            data.append('NomedaRealizacao', 'teste');
             data.append('latitude', String(latitude));
             data.append('longitude', String(longitude));
             data.append('info', info);
@@ -162,7 +160,7 @@ export default function Form({ route }) {
             const data = new FormData();
 
             data.append('nome', name);
-            data.append('categoria', 'teste');
+            data.append('categoria', categoria);
             data.append('pais', country);
             data.append('estado', state);
             data.append('cidade', city);
@@ -172,8 +170,6 @@ export default function Form({ route }) {
             data.append('email', email);
             data.append('site', site);
             data.append('coordenador', coordinator);
-            data.append('DatadeRealizacao', '2020-12-08');
-            data.append('NomedaRealizacao', 'teste');
             data.append('latitude', String(lat));
             data.append('longitude', String(long));
             data.append('info', info);
@@ -224,6 +220,20 @@ export default function Form({ route }) {
                     value={name}
                     onChangeText={setName}
                 />
+                <Text>Categoria*</Text>
+                <PickerBorder>
+                    <Picker
+                        selectedValue={categoria}
+                        onValueChange={(itemValue, itemIndex) => setCategoria(itemValue)}
+                    >
+                        <Picker.Item label='Selecione' value='' />
+                        <Picker.Item label='Cátedras Paulo Freire' value='Cátedras Paulo Freire' />
+                        <Picker.Item label='Instituto Paulo Freire' value='Instituto Paulo Freire' />
+                        <Picker.Item label='Centros e Núcleos de Estudos e Pesquisas' value='Centros e Núcleos de Estudos e Pesquisas' />
+                        <Picker.Item label='Homenagens' value='Homenagens' />
+                        <Picker.Item label='Projetos' value='Projetos' />
+                    </Picker>
+                </PickerBorder>
                 <Text>Data de fundação*</Text>
                 <DateInput onPress={() => setShow(true)}>
                     <FontAwesome5 name='calendar' size={22} color='black' />
@@ -290,21 +300,21 @@ export default function Form({ route }) {
                     value={email}
                     onChangeText={setEmail}
                 />
-                <Text>Telefone (com DDD)*</Text>
+                <Text>Telefone (com DDD)</Text>
                 <TextInput
                     multiline
                     placeholder='81999999999'
                     value={phone}
                     onChangeText={setPhone}
                 />
-                <Text>Site*</Text>
+                <Text>Site</Text>
                 <TextInput
                     multiline
                     placeholder='exemplo@site.com'
                     value={site}
                     onChangeText={setSite}
                 />
-                <Text>Mais informações*</Text>
+                <Text>Mais informações</Text>
                 <TextArea
                     multiline
                     placeholder='Exemplo'

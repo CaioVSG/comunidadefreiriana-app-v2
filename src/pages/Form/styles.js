@@ -9,6 +9,13 @@ export const ScrollView = styled.ScrollView`
     width: 100%;
 `;
 
+export const PickerBorder = styled.View`
+    border-radius: 3px;
+    border-color: #999999;
+    border-width: 1px;
+    margin: 10px;
+`;
+
 export const TextInput = styled.TextInput`
     color: #000000;
     margin: 10px;

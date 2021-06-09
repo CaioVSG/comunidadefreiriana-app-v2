@@ -15,6 +15,22 @@ export default function Info({ route }) {
         })
     }, [id]);
 
+    function validatePhone() {
+        if (institution.telefone === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateInfo() {
+        if (institution.info === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     return (
         <Container>
             <Image source={{ uri: `http://sistemas.ufape.edu.br/comunidadefreiriana/${images.path}` }} />
@@ -25,7 +41,12 @@ export default function Info({ route }) {
             <ScrollView>
                 <Icons>
                     <FontAwesome5 name='phone' size={14} color='#000000' />
-                    <TextMargin margin='0 0 0 5px' size='14px' color='#616161'>{institution.telefone}</TextMargin>
+                    {validatePhone() ? (
+                        <TextMargin margin='0 0 0 5px' size='14px' color='#616161'>{institution.telefone}</TextMargin>
+                    ) : (
+                        <TextMargin margin='0 0 0 5px' size='14px' color='#616161'>Não informado</TextMargin>
+                    )
+                    }
                 </Icons>
                 <Icons>
                     <FontAwesome5 name='envelope' size={14} color='#000000' />
@@ -58,7 +79,11 @@ export default function Info({ route }) {
                 </View>
                 <View>
                     <Text size='14px' color='#000000'>Mais informações</Text>
-                    <TextMargin margin='0 0 20px 0' size='14px' color='#616161'>{institution.info}</TextMargin>
+                    {validateInfo() ? (
+                        <TextMargin margin='0 0 20px 0' size='14px' color='#616161'>{institution.info}</TextMargin>
+                    ) : (
+                        <TextMargin margin='0 0 20px 0' size='14px' color='#616161'>Sem mais informações</TextMargin>
+                    )}
                 </View>
             </ScrollView>
         </Container>
