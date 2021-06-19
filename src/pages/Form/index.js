@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { Container, ScrollView, Text, TextInput, PickerBorder, DateInput, DateText, TextArea, ImageContainer, ImageView, ImageInput, Button, ButtonText, ButtonTextImage } from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -64,6 +64,30 @@ export default function Form({ route }) {
         setShow(false);
         setDate(currentDate);
     };
+
+    function onChangeCountry(text) {
+        setCountry(text.replace(/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s]/g, ''));
+    }
+
+    function onChangeCep(text) {
+        setCep(text.replace(/[^0-9]/g, ''));
+    }
+
+    function onChangeState(text) {
+        setState(text.replace(/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]/g, ''));
+    }
+
+    function onChangeCity(text) {
+        setCity(text.replace(/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9\s]/g, ''));
+    }
+
+    function onChangeAddress(text) {
+        setAddress(text.replace(/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,0-9\s]/g, ''));
+    }
+
+    function onChangePhone(text) {
+        setPhone(text.replace(/[^0-9]/g, ''));
+    }
 
     async function handleSelectImages() {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -238,7 +262,7 @@ export default function Form({ route }) {
                 <DateInput onPress={() => setShow(true)}>
                     <FontAwesome5 name='calendar' size={22} color='black' />
                     <DateText>
-                        {((date.getDate())) + "/" + ((date.getMonth() + 1)) + "/" + date.getFullYear()}
+                        {((date.getDate())) + '/' + ((date.getMonth() + 1)) + '/' + date.getFullYear()}
                     </DateText>
                 </DateInput>
                 {show && (
@@ -263,35 +287,35 @@ export default function Form({ route }) {
                     multiline
                     placeholder='Brasil'
                     value={country}
-                    onChangeText={setCountry}
+                    onChangeText={onChangeCountry}
                 />
                 <Text>CEP (Somente números)*</Text>
                 <TextInput
                     multiline
                     placeholder='55555555'
                     value={cep}
-                    onChangeText={setCep}
+                    onChangeText={onChangeCep}
                 />
                 <Text>Estado*</Text>
                 <TextInput
                     multiline
                     placeholder='Exemplo'
                     value={state}
-                    onChangeText={setState}
+                    onChangeText={onChangeState}
                 />
                 <Text>Cidade*</Text>
                 <TextInput
                     multiline
                     placeholder='Exemplo'
                     value={city}
-                    onChangeText={setCity}
+                    onChangeText={onChangeCity}
                 />
                 <Text>Endereço*</Text>
                 <TextInput
                     multiline
                     placeholder='Exemplo, 99'
                     value={address}
-                    onChangeText={setAddress}
+                    onChangeText={onChangeAddress}
                 />
                 <Text>E-mail*</Text>
                 <TextInput
@@ -305,7 +329,7 @@ export default function Form({ route }) {
                     multiline
                     placeholder='81999999999'
                     value={phone}
-                    onChangeText={setPhone}
+                    onChangeText={onChangePhone}
                 />
                 <Text>Site</Text>
                 <TextInput

@@ -21,7 +21,7 @@ export default function Map({ navigation }) {
     const [currentLongitude, setLongitude] = useState(0);
 
     useEffect(() => {
-        api.get('instituicao/index').then(response => {
+        api.get('instituicao/aprovados').then(response => {
             setInstitutions(response.data.data);
             setFilteredInstitutions(response.data.data);
         });
