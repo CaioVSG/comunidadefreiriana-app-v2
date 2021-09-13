@@ -6,7 +6,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import api from '../../services/api';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 import mapMarker from '../../assets/icone_marker.png';
 
 export default function Map({ navigation }) {
@@ -51,7 +51,8 @@ export default function Map({ navigation }) {
                 return;
             }
 
-            const location = await Location.getCurrentPositionAsync({ accuracy: 6 });
+            //const location = await Location.getCurrentPositionAsync({ accuracy: 6 }); accuracy em 6 está temporariamente indisponível
+            const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest });
             setLatitude(location.coords.latitude);
             setLongitude(location.coords.longitude);
             setIsLoading(false);

@@ -18,7 +18,8 @@ export default function SelectArea({ navigation }) {
                 return;
             }
 
-            const location = await Location.getCurrentPositionAsync({ accuracy: 6 });
+            //const location = await Location.getCurrentPositionAsync({ accuracy: 6 }); accuracy em 6 está temporariamente indisponível
+            const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest });
             setLatitude(location.coords.latitude);
             setLongitude(location.coords.longitude);
             setIsLoading(false);
