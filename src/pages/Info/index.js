@@ -33,7 +33,7 @@ export default function Info({ route }) {
 
     return (
         <Container>
-            <Image source={{ uri: `http://sistemas.ufape.edu.br/comunidadefreiriana/${images.path}` }} />
+            <Image source={{ uri: `http://sistemas.ufape.edu.br/comunidadefreiriana/storage/${images.path}` }} />
             <Institution>
                 <TextMargin margin='0 0 20px 0' size='22px' color='#000000'>{institution.nome}</TextMargin>
                 <Divider />

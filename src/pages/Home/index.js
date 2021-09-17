@@ -27,9 +27,10 @@ export default function Home() {
     return (
         <Container>
             <Image source={require('../../assets/logo_mapeamento.png')} />
-            <Text>Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica
-            e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja
-                de tipos e os embaralhou para fazer um livro de modelos de tipos.</Text>
+            <Text>
+                Este aplicativo busca contribuir com o registro e divulgação de organizações, movimentos
+                sociais ou projetos que se inspiram no legado do educador Paulo Freire.
+            </Text>
             <Buttons>
                 <HomeButton route={handleNavigateToDiscover} color={'#4cb4d4'} icon={'bezier-curve'} text={'Conheça Paulo Freire'} />
                 <HomeButton route={handleNavigateToMap} color={'#7cc44c'} icon={'map-marked-alt'} text={'Mapa'} />

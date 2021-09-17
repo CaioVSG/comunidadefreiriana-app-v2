@@ -18,13 +18,38 @@ export default function SelectArea({ navigation }) {
                 return;
             }
 
-            //const location = await Location.getCurrentPositionAsync({ accuracy: 6 }); accuracy em 6 está temporariamente indisponível
-            const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest });
+            try {
+                const location = await Location.getCurrentPositionAsync({ accuracy: 1 });
+                setLatitude(location.coords.latitude);
+                setLongitude(location.coords.longitude);
+                setIsLoading(false);
+            } catch (err) {
+                console.log("Couldn't get locations" + err);
+                recallCurrentLocationFunction();
+            }
+        })();
+    }, []);
+
+    getCurrentLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            return;
+        }
+
+        try {
+            const location = await Location.getCurrentPositionAsync({ accuracy: 1 });
             setLatitude(location.coords.latitude);
             setLongitude(location.coords.longitude);
             setIsLoading(false);
-        })();
-    }, []);
+        } catch (err) {
+            console.log("Couldn't get locations" + err);
+            recallCurrentLocationFunction();
+        }
+    };
+
+    recallCurrentLocationFunction = () => {
+        getCurrentLocation();
+    };
 
     function handleNavigateToForm() {
         navigation.navigate('Form', { latitude: position.latitude, longitude: position.longitude });
